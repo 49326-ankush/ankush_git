@@ -1,0 +1,39 @@
+{
+  "name" : "ankush-demo-job-with-partitionby-deptno",
+  "description" : "",
+  "role" : "arn:aws:iam::342533974654:role/service-role/AWSGlueServiceRole-s3-to-glue-s3",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-342533974654-ap-southeast-1/scripts/ankush-demo-job-with-partitionby-deptno.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-342533974654-ap-southeast-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "true",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-enable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-342533974654-ap-southeast-1/temporary/"
+  },
+  "maxRetries" : 3,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "3.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1670678147897\":{\"SparkSQL\":{\"Inputs\":[\"node-1670678131142\"],\"Name\":\"SQL Query\",\"SqlAliases\":[{\"Alias\":\"myDataSource\",\"From\":\"node-1670678131142\"}],\"SqlQuery\":\"select * from myDataSource\\n\"}},\"node-1670678161186\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"csv\",\"Inputs\":[\"node-1670678147897\"],\"Name\":\"Amazon S3\",\"PartitionKeys\":[[\"deptno\"]],\"Path\":\"s3://shardul2022/output/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}},\"node-1670678131142\":{\"S3CatalogSource\":{\"AdditionalOptions\":{},\"Database\":\"demodatabase\",\"Name\":\"Amazon S3\",\"PartitionPredicate\":\"\",\"Table\":\"input\"}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "ankush_git",
+    "branch" : "aws-branch",
+    "folder" : "ankush-demo-job-with-partitionby-deptno"
+  }
+}
